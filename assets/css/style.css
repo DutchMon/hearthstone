@@ -1,0 +1,19 @@
+.title {
+  border: 1px solid purple;
+}
+
+.characterInput {
+  border: 1px solid red;
+}
+
+.center {
+  text-align: center;
+}
+
+.jumbotron {
+  width: 100%;
+}
+
+#createCharacterContainer {
+  display: none;
+}
