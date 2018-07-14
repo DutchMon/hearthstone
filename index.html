@@ -5,10 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
     crossorigin="anonymous">
   <link rel="stylesheet" href="assets/css/style.css">
@@ -38,26 +36,43 @@
   </div>
   <div class="container">
     <div class="row center">
-      <div class="col-lg-3">
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
         <div class="form-group">
-          <button id="submitBtn" type="submit" class="btn btn-primary">Races</button>
+          <button id="genInfo" type="submit" class="btn btn-primary" value="cards">Cards</button>
         </div>
       </div>
-      <div class="col-lg-3">
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
         <div class="form-group">
-          <button id="submitBtn" type="submit" class="btn btn-primary">Classes</button>
+          <button id="genInfo" type="submit" class="btn btn-primary" value="classes">Classes</button>
         </div>
       </div>
-      <div class="col-lg-3">
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
         <div class="form-group">
           <button id="submitBtn" type="submit" class="btn btn-primary">Skills</button>
         </div>
       </div>
-      <div class="col-lg-3">
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
         <div class="form-group">
           <button id="submitBtn" type="submit" class="btn btn-primary">Spells</button>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Card ID</th>
+            <th scope="col">Card Set</th>
+            <th scope="col">Name</th>
+            <th scope="col">Text</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+        </tbody>
+      </table>
     </div>
   </div>
   <div class="container">
