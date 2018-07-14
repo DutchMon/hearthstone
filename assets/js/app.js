@@ -41,7 +41,7 @@ $(document).ready(function() {
 			for (var i = 0; i < response.Basic.length; i++) {
 
         //console logs the basic deck to the console log, bad idea, uses just one.
-        console.log(response.Basic[0]);
+        console.log(response.Basic[0].name);
         
       //adds a row to the table
       var newRow = $("<tr>").append(
