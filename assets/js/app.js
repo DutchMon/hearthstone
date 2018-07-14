@@ -10,7 +10,9 @@ $(document).ready(function() {
     console.log("You clicked the create Character button!");
   });
 
-  //when the user clicks on a button, a certain set of cards appear
+  //when the user clicks on a button, a certain set of cards appear to the table
+  //need to make it so the table is hidden and appears once the 
+  //information has loaded after the user clicks the button
   $("#genInfo").on("click", function() {
     
     //searchs a specfic kind of cards from premade buttons
@@ -34,18 +36,22 @@ $(document).ready(function() {
       //console logs the data recieved
       console.log(response)      
       
-      //for the length of the data revieved
+      //for the length of the information revieved from the basic deck
+      //need to recieve the length of the deck of cards,  not from jsut the basic deck
 			for (var i = 0; i < response.Basic.length; i++) {
 
-        console.log(response.Basic);
-				
+        //console logs the basic deck to the console log, bad idea, uses just one.
+        console.log(response.Basic[0]);
+        
+      //adds a row to the table
       var newRow = $("<tr>").append(
         // $("<td>").text(response[i]),
+        //prints the name of the cards
         $("<td>").text(response.Basic[i].name),
         // $("<td>").text(response.Basic[i].cardId),
         // $("<td>").text(response.Basic[i].cardId)
       );
-
+      //appends the row to the body of the table
       $("#cardsInfo > tbody").append(newRow);
     };
     });
