@@ -10,15 +10,15 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
     crossorigin="anonymous">
   <link rel="stylesheet" href="assets/css/style.css">
-  <title>D&D Character Creator</title>
+  <title>HearthStone Deck Info/Maker</title>
 </head>
 
 <body>
   <div class="container">
     <div class="row">
-      <div class="jumbotron">
+      <div class="jumbotron rounded-bottom">
         <h1 class=title>
-          D&D Character Creator
+          Image with some text on top
         </h1>
       </div>
     </div>
@@ -28,14 +28,14 @@
       <div class="header">
         <div class="col-lg-12">
           <h1>
-            Game Instruction
+            Instructions on how to use the site
           </h1>
         </div>
       </div>
     </div>
   </div>
   <div class="container">
-    <div class="row center">
+    <div class="row center border border-primary">
       <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
         <div class="form-group">
           <button id="genInfo" type="submit" class="btn btn-primary" value="cards">Cards</button>
@@ -63,9 +63,9 @@
       <table id="cardsInfo" class="table">
         <thead>
           <tr>
+            <th scope="col">Img</th>
             <th scope="col">Name</th>
-            <th scope="col">Card Set</th>
-            <th scope="col">Card ID</th>
+            <th scope="col">Text</th>
             <th scope="col">Text</th>
           </tr>
         </thead>
@@ -79,7 +79,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="form-group center">
-          <button id="createCharacter" type="submit" class="btn btn-primary">Create Character</button>
+          <button id="createCharacter" type="submit" class="btn btn-primary">Create Deck</button>
         </div>
       </div>
     </div>

@@ -56,7 +56,12 @@ $(document).ready(function() {
       //need to recieve the length of the deck of cards,  not from jsut the basic deck
 			for (var i = 0; i < response.Basic.length; i++) {
 
+<<<<<<< HEAD
         // var $img = $("<img>").attr("src", response.Basic[169].img);
+=======
+        //console logs the basic deck to the console log, bad idea, uses just one.
+        console.log(response.Basic[0].name);
+>>>>>>> c6a7bb7bfe2adc27fe8362b86b15c2182d1c7be5
         
         // adds a row to the table
         var newRow = $("<tr>").append(
