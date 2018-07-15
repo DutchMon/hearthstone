@@ -6,7 +6,7 @@ $(document).ready(function() {
     $("body").css("background-color", "#fff");
     //the container fades in
     $("#createCharacterContainer").fadeIn(200);
-    //conoles logs the button has been clicked
+
     console.log("You clicked the create Character button!");
   });
 
@@ -15,25 +15,14 @@ $(document).ready(function() {
   //information has loaded after the user clicks the button
   $("#genInfo").on("click", function() {
     
-    //this gives the body the a boackground of white
-    $("body").css("background-color", "#fff");
-    //the container fades in
-    $("#cardsInfo").fadeIn(200);
-    //conoles logs the button has been clicked
-    console.log("You clicked the cards Info button!");
-    
-    //searchs a specfic kind of cards from premade buttons
 		var dandDInfo = $(this).val();
     console.log(dandDInfo);
     
-    //the url too the hearthstone api
-    var queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/" + dandDInfo;
-
-    //it calls to the api when the button is clicked
+    var queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/cards";
+    
     $.ajax({
       url: queryURL,
       method: "GET",
-      //the api key used to access the information from the api
       headers: {
         "X-Mashape-Key": "onmuHALv5ymshD87EM84yGdI2eFPp1oQZIXjsnleC83W0Dqash"
       }
@@ -41,37 +30,39 @@ $(document).ready(function() {
     //determines what to do with the information recieved
     .then(function(response) {
       $cardsInfo = $("#cardsInfo > tbody");
-
-      //console logs the data recieved
+  
       console.log(response);
-
-      //console logs the length of the first deck
-      //need it to console log the length of the response to show all decks 
       console.log(response.Basic.length);
-
-      //console logs the img source
-      console.log(response.Basic[169].img);
+      
       
       //for the length of the information revieved from the basic deck
       //need to recieve the length of the deck of cards,  not from jsut the basic deck
-			for (var i = 0; i < response.Basic.length; i++) {
+      for (var i = 0; i < response.Basic.length; i++) {
 
-<<<<<<< HEAD
-        // var $img = $("<img>").attr("src", response.Basic[169].img);
-=======
-        //console logs the basic deck to the console log, bad idea, uses just one.
-        console.log(response.Basic[0].name);
->>>>>>> c6a7bb7bfe2adc27fe8362b86b15c2182d1c7be5
+        var img = response.Basic[i].img;
+        var imgElement = $("<img class='cardImage' src=" + img + " alt=img>");
+        var text = response.Basic[i].text
+
+        //if array has a img print the image to the page, otherwise print no image avaiable
+        if (img === undefined) {
+          //changes imgElement to write No Image Available to the table
+          imgElement = "No Image Available"
+        }
+        //does the same things as the top one for text
+        if (text === undefined) {
+          text = "No text available."
+        }
         
-        // adds a row to the table
         var newRow = $("<tr>").append(
-          //prints the name of the cards
+          $("<td>").append(imgElement),
           $("<td>").text(response.Basic[i].name),
-          $("<td>").text(response.Basic[i].text),
-          $("<td>").text($("<img>").attr("src", response.Basic[169].img)),
+          $("<td>").text(text),
         );
-        //appends the row to the body of the table
         $cardsInfo.append(newRow);
+    
+        $("body").css("background-color", "#fff");
+        $("#cardsInfo").fadeIn(200);
+        console.log("You clicked the cards Info button!");
       };
     });
   });
