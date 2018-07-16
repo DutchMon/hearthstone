@@ -1,21 +1,18 @@
+var $setButton = $(".setButton");
+var $addCard = $("#addCard");
+var $makeDeck = $("#makeDeck");
+var $checkBox = $('input:checked').length > 0;
+var img;
+
 $(document).ready(function() {
-
-  //when the user clicks on the createCharacter button the form appears. 
-  $("#createCharacter").on("click", function() {
-    //this gives the body the a boackground of white
-    $("body").css("background-color", "#fff");
-    //the container fades in
-    $("#createCharacterContainer").fadeIn(200);
-
-    console.log("You clicked the create Character button!");
-  });
-
+  
   //when the user clicks on a button, a certain set of cards appear to the table
   //need to make it so the table is hidden and appears once the 
   //information has loaded after the user clicks the button
-  $(".btn").on("click", function() {
+  $(".cards").on("click", function() {
     
-		var hearthStoneCards = $(this).val();
+    var img;
+    var hearthStoneCards = $(this).val();
     console.log(hearthStoneCards);
     
     var queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/" + hearthStoneCards + "/";
@@ -30,7 +27,7 @@ $(document).ready(function() {
     //determines what to do with the information recieved
     .then(function(response) {
       $cardsInfo = $("#cardsInfo > tbody");
-  
+      
       console.log(response);
       console.log(response.Basic.length);
       
@@ -38,7 +35,8 @@ $(document).ready(function() {
       //for the length of the information revieved from the basic deck
       //need to recieve the length of the deck of cards,  not from jsut the basic deck
       for (var i = 0; i < response.Basic.length; i++) {
-
+        
+        var $checkBox = $("<input class='selector' type='checkbox' value=" + response.Basic[i].name + ">");
         var img = response.Basic[i].img;
         var imgElement = $("<img class='cardImage' src=" + img + " alt=img>");
         var text = response.Basic[i].text
@@ -54,7 +52,7 @@ $(document).ready(function() {
         }
         
         var newRow = $("<tr>").append(
-          $("<td>").append(imgElement),
+          $("<td>").prepend($checkBox).append(imgElement),
           $("<td>").text(response.Basic[i].name),
           $("<td>").text(text),
         );
@@ -64,6 +62,32 @@ $(document).ready(function() {
         $("#cardsInfo").fadeIn(200);
         console.log("You clicked the cards Info button!");
       };
+
+      $makeDeck.on("click", function() {
+        $playerDeck = $("#playerDeck > tbody");
+        console.log("You clicked the create deck button");
+    
+        var playerDeckArray = [];
+    
+        if ($("input:checked")) {
+          var cardName = $("input:checked").val();
+          
+          playerDeckArray.push(imgElement);
+          playerDeckArray.push(cardName);
+          playerDeckArray.push(text);
+
+          console.log(playerDeckArray)
+
+          var playerDeckRow = $("<tr>").append(
+            $("<td>").append(imgElement),
+            $("<td>").text(cardName),
+            $("<td>").text(text),
+          );
+
+          $playerDeck.append(playerDeckRow);
+    
+        }
+      })
     });
   });
 });
