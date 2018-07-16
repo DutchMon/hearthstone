@@ -65,7 +65,6 @@ $(document).ready(function() {
 
       $makeDeck.on("click", function() {
         $playerDeck = $("#playerDeck > tbody");
-        console.log("You clicked the create deck button");
     
         var playerDeckArray = [];
     
@@ -89,5 +88,6 @@ $(document).ready(function() {
         }
       })
     });
+    
   });
 });
