@@ -13,18 +13,18 @@ $(document).ready(function() {
   //when the user clicks on a button, a certain set of cards appear to the table
   //need to make it so the table is hidden and appears once the 
   //information has loaded after the user clicks the button
-  $("#genInfo").on("click", function() {
+  $(".btn").on("click", function() {
     
-		var dandDInfo = $(this).val();
-    console.log(dandDInfo);
+		var hearthStoneCards = $(this).val();
+    console.log(hearthStoneCards);
     
-    var queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/cards";
+    var queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/" + hearthStoneCards + "/";
     
     $.ajax({
       url: queryURL,
       method: "GET",
       headers: {
-        "X-Mashape-Key": "onmuHALv5ymshD87EM84yGdI2eFPp1oQZIXjsnleC83W0Dqash"
+        "X-Mashape-Key": "rruq02mvUemshfKdA9mFcE1IYPZhp1qP0yBjsnNFN9a6djXXv6"
       }
     })
     //determines what to do with the information recieved
