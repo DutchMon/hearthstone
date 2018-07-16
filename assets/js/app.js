@@ -4,16 +4,13 @@ var $makeDeck = $("#makeDeck");
 var $checkBox = $('input:checked').length > 0;
 var img;
 
-$(document).ready(function() {
-  
   //when the user clicks on a button, a certain set of cards appear to the table
   //need to make it so the table is hidden and appears once the 
   //information has loaded after the user clicks the button
-  $(".cards").on("click", function() {
+
+  $(document).ready(function() {
     
-    var img;
-    var hearthStoneCards = $(this).val();
-    console.log(hearthStoneCards);
+		var hearthStoneCards = "cards";
     
     var queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/" + hearthStoneCards + "/";
     
@@ -21,19 +18,58 @@ $(document).ready(function() {
       url: queryURL,
       method: "GET",
       headers: {
-        "X-Mashape-Key": "rruq02mvUemshfKdA9mFcE1IYPZhp1qP0yBjsnNFN9a6djXXv6"
+        "X-Mashape-Key": "XdYJmX80oqmshZPZPci91lDozyiqp1pNJVjjsnJN4oyFk83Jc3"
       }
     })
+
     //determines what to do with the information recieved
     .then(function(response) {
+      $('.loading').addClass("wrapper-hidden")
+      $('.show').removeClass("wrapper-hidden")
       $cardsInfo = $("#cardsInfo > tbody");
+  
+      console.log(response)
+
+      var setNamesArray = [];
+
+      for (var key in response){
+        if(response[key].length !==0){
+          setNamesArray.push(key)
+        }
+      }
+
+
       
-      console.log(response);
+      
+
+      console.log(setNamesArray);
+      console.log(setNamesArray[0]);
       console.log(response.Basic.length);
       
+
       
+
+
+
+      // for (var i = 0; i < setNamesArray.length; i++) {
+
+      // $('.dropdown-menu').append("<a class= dropdown-item>"+setNamesArray[i]+"</a>")
+      // $('.dropdown-menu').addClass("displayCards");
+      // }
+      
+
+      // $('.displayCards').on('click',function(){
+
+      //     console.log("Hey")
+      
+        
+      // });
+
       //for the length of the information revieved from the basic deck
       //need to recieve the length of the deck of cards,  not from jsut the basic deck
+
+      
+
       for (var i = 0; i < response.Basic.length; i++) {
         
         var $checkBox = $("<input class='selector' type='checkbox' value=" + response.Basic[i].name + ">");
@@ -90,4 +126,7 @@ $(document).ready(function() {
       })
     });
   });
+
+  
+
 });

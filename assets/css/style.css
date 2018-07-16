@@ -26,3 +26,16 @@
 #cardsInfo {
   display:none;
 }
+
+.wrapper-hidden {
+  display: none!important;
+}
+
+#center {
+  display:block;
+  margin:auto;
+}
+.coolFont {
+  text-align: center;
+  font-family: 'Chela One', cursive;
+}
