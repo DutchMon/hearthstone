@@ -5,11 +5,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
     crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+
   <link rel="stylesheet" href="assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Chela+One" rel="stylesheet">
+
+
+
+
   <title>HearthStone Deck Info/Maker</title>
 </head>
 
@@ -34,26 +46,42 @@
       </div>
     </div>
   </div>
-  <div class="container">
-    <div class="row center">
-      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-        <div class="form-group">
-          <button class="btn btn-primary" value="cards">Card Sets</button>
+  <div class="loading">
+
+    <img id="center" src="https://media.giphy.com/media/3o7bu8sRnYpTOG1p8k/giphy.gif" alt="Loading">
+    <br>
+    <h1 class="coolFont"><strong>Just hang tight while we fetch some data for ya...</strong></h1>
+
+  </div>
+
+  <div class="wrapper-hidden show">
+    <div class="container">
+      <div class="row center">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" value="cards" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Card Sets
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <!-- <a class="dropdown-item" href="#">Action</a> -->
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-        <div class="form-group">
-          <button class="btn btn-primary" value="classes">Classes</button>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+          <div class="form-group">
+            <button class="btn btn-primary" value="classes">Classes</button>
+          </div>
         </div>
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-        <div class="form-group">
-          <button id="submitBtn" type="submit" class="btn btn-primary">Skills</button>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+          <div class="form-group">
+            <button id="submitBtn" type="submit" class="btn btn-primary">Skills</button>
+          </div>
         </div>
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-        <div class="form-group">
-          <button id="submitBtn" type="submit" class="btn btn-primary">Spells</button>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+          <div class="form-group">
+            <button id="submitBtn" type="submit" class="btn btn-primary">Spells</button>
+          </div>
         </div>
       </div>
     </div>
@@ -75,7 +103,7 @@
       </table>
     </div>
   </div>
-  <div class="container">
+  <div class="container wrapper-hidden show">
     <div class="row">
       <div class="col-lg-12">
         <div class="form-group center">
@@ -84,19 +112,8 @@
       </div>
     </div>
   </div>
-  <div id="createCharacterContainer" class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="form-group title">
-          <label for="exampleFormControlSelect1">Example select</label>
-          <select class="form-control" id="exampleFormControlSelect1">
-            <option></option>
-            <option>Barbarian</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
+
+
   <script src="assets/js/app.js"></script>
 </body>
 
