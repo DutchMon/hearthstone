@@ -1,3 +1,23 @@
+#createCharacterContainer {
+  display: none;
+}
+
+#cardsInfo {
+  display:none;
+}
+#center {
+  display:block;
+  margin:auto;
+}
+
+#playerDeck {
+  display: none;
+}
+
+#hidden {
+  display: none;
+}
+
 .title {
   border: 1px solid purple;
 }
@@ -19,22 +39,10 @@
   width: 250px;
 }
 
-#createCharacterContainer {
-  display: none;
-}
-
-#cardsInfo {
-  display:none;
-}
-
 .wrapper-hidden {
   display: none!important;
 }
 
-#center {
-  display:block;
-  margin:auto;
-}
 .coolFont {
   text-align: center;
   font-family: 'Chela One', cursive;
