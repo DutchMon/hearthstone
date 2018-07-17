@@ -67,7 +67,7 @@ $(document).ready(function() {
           text = "No text available."
         }
         
-        var newRow = $("<tr value="+i+">").append(
+        var newRow = $("<tr id="+i+">").append(
           $("<td>").prepend($checkBox).append(imgElement),
           $("<td>").text(card.name),
           $("<td>").text(text),
