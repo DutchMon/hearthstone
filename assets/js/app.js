@@ -2,6 +2,7 @@ var $setButton = $(".setButton");
 var $addCard = $("#addCard");
 var $makeDeck = $("#makeDeck");
 var $checkBox = $('input:checked').length > 0;
+var $chosenCards = $('<tr>');
 
 $(document).ready(function() {
   
@@ -66,7 +67,7 @@ $(document).ready(function() {
           text = "No text available."
         }
         
-        var newRow = $("<tr>").append(
+        var newRow = $("<tr value="+i+">").append(
           $("<td>").prepend($checkBox).append(imgElement),
           $("<td>").text(card.name),
           $("<td>").text(text),
@@ -77,45 +78,87 @@ $(document).ready(function() {
         $("#cardsInfo").fadeIn(200);
       };
 
+      $chosenCards.on("click", function(){
+        var cardValue = $(this).val();
+
+        console.log(cardValue)
+
+        return cardValue;
+      });
+
+
       $makeDeck.on("click", function() {
-        $playerDeck = $("#playerDeck > tbody");
+        // $playerDeck = $("#playerDeck > tbody");
     
+        
+
+        
         var playerDeckArray = [];
     
-        if ($("input:checked")) {
-          var cardIndex = $("input:checked").val();
-          var playerDecktext = response[replace][cardIndex].text;
-          var playerDeckImage = response[replace][cardIndex].img;
+        // if ($("input:checked")) {
+        //   var cardIndex = $("input:checked").val();
+        //   var playerDecktext = response[replace][cardIndex].text;
+        //   var playerDeckImage = response[replace][cardIndex].img;
           
+          var card = response[replace][cardValue];
+      
+          var $checkBox = $("<input class='selector' type='checkbox' value=" + cardValue + ">");
+          var img = card.img;
+          var imgElement = $("<img class='cardImage' src=" + img + " alt=img>");
+          var text = card.text
+  
           //if array has a img print the image to the page, otherwise print no image avaiable
-          if (playerDeckImage === undefined) {
+          if (img === undefined) {
             //changes imgElement to write No Image Available to the table
-            playerDeckImage = "No Image Available";
+            imgElement = "No Image Available"
           }
-
-          console.log(playerDeckImage)
-          // does the same things as the top one for text
-          if (playerDecktext === undefined) {
-            playerDecktext = "No text available.";
+          //does the same things as the top one for text
+          if (text === undefined) {
+            text = "No text available."
           }
           
-          var playerDeckImageShown = $("<img class='cardImage' src=" + playerDeckImage + " alt=img>");
+          var newRow = $("<tr value="+i+">").append(
+            $("<td>").prepend($checkBox).append(imgElement),
+            $("<td>").text(card.name),
+            $("<td>").text(text),
+          );
+          $cardsInfo.append(newRow);
+      
+          $("body").css("background-color", "#fff");
+          $("#cardsInfo").fadeIn(200);
+
+
+
+
+          //if array has a img print the image to the page, otherwise print no image avaiable
+        //   if (playerDeckImage === undefined) {
+        //     //changes imgElement to write No Image Available to the table
+        //     playerDeckImage = "No Image Available";
+        //   }
+
+        //   console.log(playerDeckImage)
+        //   // does the same things as the top one for text
+        //   if (playerDecktext === undefined) {
+        //     playerDecktext = "No text available.";
+        //   }
+          
+        //   var playerDeckImageShown = $("<img class='cardImage' src=" + playerDeckImage + " alt=img>");
 
   
-          // playerDeckArray.push(imgElement);
-          // playerDeckArray.push(cardName);
-          // playerDeckArray.push(text);
+        //   // playerDeckArray.push(imgElement);
+        //   // playerDeckArray.push(cardName);
+        //   // playerDeckArray.push(text);
   
-          // console.log(playerDeckArray)
+        //   // console.log(playerDeckArray)
   
-          var playerDeckRow = $("<tr>").append(
-            $("<td>").append(playerDeckImageShown),
-          //   $("<td>").text(cardName),
-            $("<td>").text(playerDecktext),
-          );
+        //   var playerDeckRow = $("<tr>").append(
+        //     $("<td>").append(playerDeckImageShown),
+        //   //   $("<td>").text(cardName),
+        //     $("<td>").text(playerDecktext),
+        //   );
   
-          $playerDeck.append(playerDeckRow);
-        }
+        //   $playerDeck.append(playerDeckRow);
+        // }
       })
     });
   })
