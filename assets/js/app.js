@@ -34,85 +34,89 @@ $(document).ready(function() {
     }
 
     console.log(setNamesArray);
-    console.log(setNamesArray[0]);
-    console.log(response.Basic.length);
 
     for (var i = 0; i < setNamesArray.length; i++) {
 
-    $('.dropdown-menu').append("<a class= dropdown-item>"+setNamesArray[i]+"</a>");
-    $('.dropdown-menu').addClass("displayCards");
+    $('.dropdown-menu').append("<a class= dropdown-item>"+setNamesArray[i]+"</a>")
+    $('a').addClass("displayCards");
     }
 
-    $('.displayCards').on('click',function(){
+    $('.displayCards').on('click',function(replace){
 
-        console.log("Hey");
-    });
+      $('.cardsDisplay').empty();
 
-    //for the length of the information revieved from the basic deck
-    //need to recieve the length of the deck of cards,  not from jsut the basic deck
-    for (var i = 0; i < response.Basic.length; i++) {
+      var replace = $(this).text();
+
+      for (var i = 0; i < response[replace].length; i++) {
+
+        var card = response[replace][i];
       
-      var $checkBox = $("<input class='selector' type='checkbox' value=" + i + ">");
-      var img = response.Basic[i].img;
-      var imgElement = $("<img class='cardImage' src=" + img + " alt=img>");
-      var text = response.Basic[i].text;
+        var $checkBox = $("<input class='selector' type='checkbox' value=" + i + ">");
+        var img = card.img;
+        var imgElement = $("<img class='cardImage' src=" + img + " alt=img>");
+        var text = card.text
 
-      //if array has a img print the image to the page, otherwise print no image avaiable
-      if (img === undefined) {
-        //changes imgElement to write No Image Available to the table
-        imgElement = "No Image Available";
-      }
-      // does the same things as the top one for text
-      if (text === undefined) {
-        text = "No text available.";
-      }
-      
-      var newRow = $("<tr>").append(
-        $("<td>").prepend($checkBox).append(imgElement),
-        $("<td>").text(response.Basic[i].name),
-        $("<td class='tableText'>").text(text),
-      );
-      $cardsInfo.append(newRow);
-  
-      $("body").css("background-color", "#fff");
-      $("#cardsInfo").fadeIn(200);
-      console.log("You clicked the cards Info button!");
-    };
-
-    $makeDeck.on("click", function() {
-      $playerDeck = $("#playerDeck > tbody");
-  
-      var playerDeckArray = [];
-  
-      if ($("input:checked")) {
-        var cardIndex = $("input:checked").val();
-        var playerDecktext = response.Basic[cardIndex].text;
-        var playerDeckImage = response.Basic[cardIndex].img;
-        
         //if array has a img print the image to the page, otherwise print no image avaiable
-        if (playerDeckImage === undefined) {
+        if (img === undefined) {
           //changes imgElement to write No Image Available to the table
-          playerDeckImage = "No Image Available";
+          imgElement = "No Image Available"
         }
-        // does the same things as the top one for text
-        if (playerDecktext === undefined) {
-          playerDecktext = "No text available.";
+        //does the same things as the top one for text
+        if (text === undefined) {
+          text = "No text available."
         }
-
-        // playerDeckArray.push(imgElement);
-        // playerDeckArray.push(cardName);
-        // playerDeckArray.push(text);
-
-        // console.log(playerDeckArray)
-
-        var playerDeckRow = $("<tr>").append(
-          $("<td>").append(playerDeckImage),
-        //   $("<td>").text(cardName),
-          $("<td>").text(playerDecktext),
+        
+        var newRow = $("<tr>").append(
+          $("<td>").prepend($checkBox).append(imgElement),
+          $("<td>").text(card.name),
+          $("<td>").text(text),
         );
+        $cardsInfo.append(newRow);
+    
+        $("body").css("background-color", "#fff");
+        $("#cardsInfo").fadeIn(200);
+      };
 
-        $playerDeck.append(playerDeckRow);
-      }
-    })
-  });
+      $makeDeck.on("click", function() {
+        $playerDeck = $("#playerDeck > tbody");
+    
+        var playerDeckArray = [];
+    
+        if ($("input:checked")) {
+          var cardIndex = $("input:checked").val();
+          var playerDecktext = response[replace][cardIndex].text;
+          var playerDeckImage = response[replace][cardIndex].img;
+          
+          //if array has a img print the image to the page, otherwise print no image avaiable
+          if (playerDeckImage === undefined) {
+            //changes imgElement to write No Image Available to the table
+            playerDeckImage = "No Image Available";
+          }
+
+          console.log(playerDeckImage)
+          // does the same things as the top one for text
+          if (playerDecktext === undefined) {
+            playerDecktext = "No text available.";
+          }
+          
+          var playerDeckImageShown = $("<img class='cardImage' src=" + playerDeckImage + " alt=img>");
+
+  
+          // playerDeckArray.push(imgElement);
+          // playerDeckArray.push(cardName);
+          // playerDeckArray.push(text);
+  
+          // console.log(playerDeckArray)
+  
+          var playerDeckRow = $("<tr>").append(
+            $("<td>").append(playerDeckImageShown),
+          //   $("<td>").text(cardName),
+            $("<td>").text(playerDecktext),
+          );
+  
+          $playerDeck.append(playerDeckRow);
+        }
+      })
+    });
+  })
 });
