@@ -57,19 +57,15 @@ $(document).ready(function() {
       var imgElement = $("<img class='cardImage' src=" + img + " alt=img>");
       var text = response.Basic[i].text;
 
-      function imageExists() {
-        //if array has a img print the image to the page, otherwise print no image avaiable
-        if (img === undefined) {
-          //changes imgElement to write No Image Available to the table
-          imgElement = "No Image Available";
-        }
-        // does the same things as the top one for text
-        if (text === undefined) {
-          text = "No text available.";
-        }
+      //if array has a img print the image to the page, otherwise print no image avaiable
+      if (img === undefined) {
+        //changes imgElement to write No Image Available to the table
+        imgElement = "No Image Available";
       }
-
-      imageExists(img);
+      // does the same things as the top one for text
+      if (text === undefined) {
+        text = "No text available.";
+      }
       
       var newRow = $("<tr>").append(
         $("<td>").prepend($checkBox).append(imgElement),
