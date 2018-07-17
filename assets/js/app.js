@@ -73,7 +73,7 @@ $(document).ready(function() {
         );
         $cardsInfo.append(newRow);
     
-        $("body").css("background-color", "#fff");
+        
         $("#cardsInfo").fadeIn(200);
       };
 
