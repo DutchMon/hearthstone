@@ -1,8 +1,14 @@
 var $setButton = $(".setButton");
 var $addCard = $("#addCard");
+<<<<<<< HEAD
 var $makeDeck = $("button");
 var $checkBox = $("input:checked").length > 0;
 var $chosenCards = $("tr");
+=======
+var $makeDeck = $("#makeDeck");
+var $checkBox = $('input:checked').length > 0;
+var $chosenCards = $('<tr>');
+>>>>>>> 9031a79351b9df9a59a2cdb414b3aaf78d0c28ab
 
 $(document).ready(function() {
   var hearthStoneCards = "cards";
@@ -69,8 +75,13 @@ $(document).ready(function() {
         if (text === undefined) {
           text = "No text available.";
         }
+<<<<<<< HEAD
 
         var newRow = $("<tr id=" + i + " class='cardsInfo'>").append(
+=======
+        
+        var newRow = $("<tr id="+i+">").append(
+>>>>>>> 9031a79351b9df9a59a2cdb414b3aaf78d0c28ab
           $("<td>").prepend($checkBox).append(imgElement),
           $("<td>").text(card.name),
           $("<td>").text(text),
@@ -79,6 +90,7 @@ $(document).ready(function() {
         $cardsInfo.append(newRow);
 
         $("#cardsInfo").fadeIn(200);
+<<<<<<< HEAD
         
       }
       $(".buttonSelect").click(function () {
@@ -102,3 +114,139 @@ $(document).ready(function() {
     });
   });
 });
+=======
+      };
+
+      $chosenCards.on("click", function(){
+        var cardValue = $(this).val();
+
+        console.log(cardValue)
+
+        return cardValue;
+      });
+
+
+      $makeDeck.on("click", function() {
+        // $playerDeck = $("#playerDeck > tbody");
+    
+        
+
+        
+        var playerDeckArray = [];
+    
+        // if ($("input:checked")) {
+        //   var cardIndex = $("input:checked").val();
+        //   var playerDecktext = response[replace][cardIndex].text;
+        //   var playerDeckImage = response[replace][cardIndex].img;
+          
+          var card = response[replace][cardValue];
+      
+          var $checkBox = $("<input class='selector' type='checkbox' value=" + cardValue + ">");
+          var img = card.img;
+          var imgElement = $("<img class='cardImage' src=" + img + " alt=img>");
+          var text = card.text
+  
+          //if array has a img print the image to the page, otherwise print no image avaiable
+          if (img === undefined) {
+            //changes imgElement to write No Image Available to the table
+            imgElement = "No Image Available"
+          }
+          //does the same things as the top one for text
+          if (text === undefined) {
+            text = "No text available."
+          }
+          
+          var newRow = $("<tr value="+i+">").append(
+            $("<td>").prepend($checkBox).append(imgElement),
+            $("<td>").text(card.name),
+            $("<td>").text(text),
+          );
+          $cardsInfo.append(newRow);
+      
+          $("body").css("background-color", "#fff");
+          $("#cardsInfo").fadeIn(200);
+
+
+
+
+          //if array has a img print the image to the page, otherwise print no image avaiable
+        //   if (playerDeckImage === undefined) {
+        //     //changes imgElement to write No Image Available to the table
+        //     playerDeckImage = "No Image Available";
+        //   }
+
+        //   console.log(playerDeckImage)
+        //   // does the same things as the top one for text
+        //   if (playerDecktext === undefined) {
+        //     playerDecktext = "No text available.";
+        //   }
+          
+        //   var playerDeckImageShown = $("<img class='cardImage' src=" + playerDeckImage + " alt=img>");
+
+  
+        //   // playerDeckArray.push(imgElement);
+        //   // playerDeckArray.push(cardName);
+        //   // playerDeckArray.push(text);
+  
+        //   // console.log(playerDeckArray)
+  
+        //   var playerDeckRow = $("<tr>").append(
+        //     $("<td>").append(playerDeckImageShown),
+        //   //   $("<td>").text(cardName),
+        //     $("<td>").text(playerDecktext),
+        //   );
+  
+        //   $playerDeck.append(playerDeckRow);
+        // }
+      })
+    });
+  })
+});
+
+
+
+
+
+// ---------------------------YOUTUBE STUFFFFFFFFFFFF---------------------------
+
+// 2. This code loads the IFrame Player API code asynchronously.
+var tag = document.createElement('script');
+
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+// 3. This function creates an <iframe> (and YouTube player)
+//    after the API code downloads.
+var player;
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('player', {
+    height: '390',
+    width: '640',
+    videoId: 'GPAsYTzi-iI',
+    events: {
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
+    }
+  });
+}
+
+// 4. The API will call this function when the video player is ready.
+function onPlayerReady(event) {
+  event.target.playVideo();
+}
+
+// 5. The API calls this function when the player's state changes.
+//    The function indicates that when playing a video (state=1),
+//    the player should play for six seconds and then stop.
+var done = false;
+function onPlayerStateChange(event) {
+  if (event.data == YT.PlayerState.PLAYING && !done) {
+    setTimeout(stopVideo, 6000);
+    done = true;
+  }
+}
+function stopVideo() {
+  player.stopVideo();
+}
+>>>>>>> 9031a79351b9df9a59a2cdb414b3aaf78d0c28ab
