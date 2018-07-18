@@ -38,8 +38,18 @@ $(document).ready(function() {
 
     for (var i = 0; i < setNamesArray.length; i++) {
 
-    $('.dropdown-menu').append("<a class= dropdown-item>"+setNamesArray[i]+"</a>")
-    $('a').addClass("displayCards");
+        if (i<setNamesArray.length/3){
+            $('.col1').append("<a class= dropdown-item>"+setNamesArray[i]+"</a>")
+            $('a').addClass("displayCards");
+        }
+        else if (i>setNamesArray.length/3 && i<(setNamesArray.length/3)*2){
+            $('.col2').append("<a class= dropdown-item>"+setNamesArray[i]+"</a>")
+            $('a').addClass("displayCards");
+        }
+        else {
+            $('.col3').append("<a class= dropdown-item>"+setNamesArray[i]+"</a>")
+            $('a').addClass("displayCards");
+        }
     }
 
     $('.displayCards').on('click',function(replace){
