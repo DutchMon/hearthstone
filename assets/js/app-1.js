@@ -5,13 +5,16 @@ var $checkBox = $("input:checked").length > 0;
 var $chosenCards = $("tr");
 
 $(document).ready(function() {
-  // var hearthStoneCards = "cards";
+  var hearthStoneCards = "cards";
 
-  var queryURL = "https://cors-anywhere.herokuapp.com/https://api.hearthstonejson.com/v1/25252/enUS/cards.json";
+  var queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/" + hearthStoneCards + "/";
 
   $.ajax({
     url: queryURL,
-    method: "GET"
+    method: "GET",
+    headers: {
+      "X-Mashape-Key": "XdYJmX80oqmshZPZPci91lDozyiqp1pNJVjjsnJN4oyFk83Jc3"
+    }
   })
   //determines what to do with the information recieved
   .then(function(response) {
@@ -21,84 +24,96 @@ $(document).ready(function() {
 
     console.log(response);
 
-//     var setNamesArray = [];
+    var setNamesArray = [];
 
-//     for (var key in response) {
-//       if (response[key].length !== 0) {
-//         setNamesArray.push(key);
-//       }
-//     }
+    for (var key in response) {
+      if (response[key].length !== 0) {
+        setNamesArray.push(key);
+      }
+    }
 
-//     console.log(setNamesArray);
+    console.log(setNamesArray);
 
-//     for (var i = 0; i < setNamesArray.length; i++) {
-//       $(".dropdown-menu").append("<a class= dropdown-item>" + setNamesArray[i] + "</a>");
-//       $("a").addClass("displayCards");
-//     }
+    for (var i = 0; i < setNamesArray.length; i++) {
+      $(".dropdown-menu").append("<a class= dropdown-item>" + setNamesArray[i] + "</a>");
+      $("a").addClass("displayCards");
+    }
 
-//     $(".displayCards").on("click", function(replace) {
-//       $(".cardsDisplay").empty();
+    $(".displayCards").on("click", function(replace) {
+      $(".cardsDisplay").empty();
 
-//       var replace = $(this).text();
+      var replace = $(this).text();
 
-//       for (var i = 0; i < response[replace].length; i++) {
-//         var card = response[replace][i];
-//         var imgUrl = card.img;
-//         var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
-//         var text = card.text;
+      for (var i = 0; i < response[replace].length; i++) {
+        var card = response[replace][i];
+        var imgUrl = card.img;
+        var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+        var text = card.text;
 
-//         $.ajax({
-//           url: imgUrl,
-//           type: "HEAD",
-//           error: function() {
-//             //do something depressing
-//             imgElement = $("<p>No Image Available</p>");
-//             return imgElement;
-//           },
-//           success: function() {
-//             //do something cheerful :)
-//             var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
-//             return imgElement;
-//           }
-//         });
+        $.ajax({
+          url: imgUrl,
+          type: "HEAD",
+          error: function() {
+            //do something depressing
+            imgElement = $("<p>No Image Available</p>");
+            return imgElement;
+          },
+          success: function() {
+            //do something cheerful :)
+            var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+            return imgElement;
+          }
+        });
 
-//         //does the same things as the top one for text
-//         if (text === undefined) {
-//           text = "No text available.";
-//         }
+        //does the same things as the top one for text
+        if (text === undefined) {
+          text = "No text available.";
+        }
 
-//         var newRow = $("<tr id=" + i + ">").append(
-//           $("<td>").prepend($checkBox).append(imgElement),
-//           $("<td>").text(card.name),
-//           $("<td>").text(text),
-//           $("<td>").append($("<a href='#' class='buttonSelect' id=" + i + ">Add</button>")),
-//         );
-//         $cardsInfo.append(newRow);
+        var newRow = $("<tr id=" + i + " class='cardsInfo'>").append(
+          $("<td>").prepend($checkBox).append(imgElement),
+          $("<td>").text(card.name),
+          $("<td>").text(text),
+          $("<td>").append($("<a href='#' class='buttonSelect' id=" + i + ">Add</button>")),
+        );
+        $cardsInfo.append(newRow);
 
-//         $("#cardsInfo").fadeIn(200);
-//       }
+        $("#cardsInfo").fadeIn(200);
+        
+      }
+      $(".buttonSelect").click(function () {
+        $("#playerDeck").fadeIn(200);
+        var row = $(this).closest("tr");
+        var table = $(this).closest("table");
 
-//       $(".buttonSelect").on("click", function() {
-//         var tableROW = $(this);
-//         tableROW.removeClass("buttonSelect");
-//         tableROW.addClass("buttonRemove");
-//         $("#playerDeck").fadeIn(200);
-//         tableROW.closest('tr').attr("hidden");
-//         var playerDeckRow = tableROW.closest('tr');
-//         var cardsInfoRow = playerDeckRow.attr('id');
-//         console.log(cardsInfoRow);
-//         $("#playerDeck").append(playerDeckRow);
+        var IDofthetable = table.attr('id');
+        console.log(IDofthetable);
+        var ClassoftheRow = row.attr("class");
+
+        row.detach();
+
+        if (ClassoftheRow==IDofthetable) {  // if it is in the parent table
+          $("#playerDeck").append(row);  //move to table 4
+        }
+        else {
+          $("#"+ClassoftheRow).append(row); //move to parent table
+        }
+      });     
       
-//         function resetElement(card) {
-//           $("#" + card).attr("display: block");
-//         }
+      //
 
-//         $(".buttonRemove").on("click", function() {
-//           console.log("I've been clicked");
-//           $(this).closest('tr').remove();
-//           resetElement(cardsInfoRow);
-//         })
-//       });
-//     });
+
+
+
+
+
+
+    });
+
+
+
+
+
+
   });
 });
