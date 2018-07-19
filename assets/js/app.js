@@ -95,8 +95,8 @@ $(document).ready(function() {
         $cardsInfo.append(newRow);
 
         $("#cardsInfo").fadeIn(200);
-        
       }
+
       $(".buttonSelect").click(function () {
         $("#playerDeck").fadeIn(200);
 
@@ -138,11 +138,80 @@ $(document).ready(function() {
     //determines what to do with the information recieved
     .then(function(cardClasses) {
       console.log(cardClasses);
-    })
+
+      $(".cardsDisplay").empty();
+
+      console.log(cardClasses.length);
+
+      for (var i = 0; i < cardClasses.length; i++) {
+        var card = cardClasses[i];
+        var imgUrl = card.img;
+        var cardType = card.type;
+        var playerClass = card.playerClass;
+        var cardSet = card.cardSet;
+        var cardFaction = card.faction;
+        var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+        var text = card.text;
+
+        $.ajax({
+          url: imgUrl,
+          type: "HEAD",
+          error: function() {
+            //do something depressing
+            imgElement = $("<p>No Image Available</p>");
+            return imgElement;
+          },
+          success: function() {
+            //do something cheerful :)
+            var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+            return imgElement;
+          }
+        });
+
+        //does the same things as the top one for text
+        if (text === undefined) {
+          text = "No text available.";
+        }
+
+        var newRow = $("<tr id=" + i + " class='cardsInfo'>").append(
+          $("<td>").append(imgElement),
+          $("<td>").text(card.name),
+          $("<td>").text(text),
+          $("<td>").text(cardFaction),
+          $("<td>").text(cardType),
+          $("<td>").text(playerClass),
+          $("<td>").text(cardSet),
+          $("<td>").append($("<a href='#' class='buttonSelect' id=" + i + ">Add</button>")),
+        );
+        $cardsInfo.append(newRow);
+
+        $("#cardsInfo").fadeIn(200);
+      };
+
+      $(".buttonSelect").click(function () {
+        $("#playerDeck").fadeIn(200);
+
+        var row = $(this).closest("tr");
+        var table = $(this).closest("table");
+        var IDofthetable = table.attr('id');
+        var ClassoftheRow = row.attr("class");
+
+        row.detach();
+
+        // if it is in the parent table
+        if (ClassoftheRow==IDofthetable) {
+
+          //move to playerDeck table
+          $("#playerDeck").append(row);
+        } else {
+          
+          //move to parent table
+          $("#"+ClassoftheRow).append(row);
+        }
+      });
+    });
   });
 });
-    //if statement for is user clicks on this button, it prints out that information
-    //would it go here or up above?? lets find out
 
 // ---------------------------YOUTUBE STUFFFFFFFFFFFF---------------------------
 
