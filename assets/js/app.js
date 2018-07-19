@@ -1,7 +1,6 @@
 var $setButton = $(".setButton");
 var $addCard = $("#addCard");
 var $makeDeck = $("button");
-var $checkBox = $("input:checked").length > 0;
 var $chosenCards = $("tr");
 
 $(document).ready(function() {
@@ -84,7 +83,7 @@ $(document).ready(function() {
         }
 
         var newRow = $("<tr id=" + i + " class='cardsInfo'>").append(
-          $("<td>").prepend($checkBox).append(imgElement),
+          $("<td>").append(imgElement),
           $("<td>").text(card.name),
           $("<td>").text(text),
           $("<td>").text(cardFaction),
