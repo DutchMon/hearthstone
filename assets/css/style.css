@@ -1,81 +1,87 @@
-/* .title { */
-  /* size: 1250px 500px; */
-/* } */
+body{
+  background-color: darkgray;
+}
+
+#createCharacterContainer {
+  display: none;
+}
+
+#cardsInfo {
+  display:none;
+}
+#center {
+  display:block;
+  margin:auto;
+}
+
+#playerDeck {
+  display: none;
+}
+
+#hidden {
+  display: none;
+}
+
+#whiteText {
+  color: white;
+}
+
 .header {
-    text-align: center;
+  text-align: center;
+}
+
+
+.characterInput {
+  border: 1px solid red;
+}
+
+.center {
+  text-align: center;
+}
+
+.jumbotron {
+  width: 100%;
+  height: 250px;
+  background-image: url("https://orig00.deviantart.net/51bb/f/2014/019/5/7/hearthstone_heores_of_warcraft_banner_by_markos040122-d72ttiz.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 1200px 250px;
+  animation-name: banner;
+  animation-duration: 2s;
+}
+  @keyframes banner {
+    0%   {opacity: 0.0;}
+    50%   {opacity: 0.5;}
+    100%  {opacity: 1.0;}
+}
+
+.text-center {
+  animation-name: text-center;
+  animation-duration: 2s;
+}
+
+@keyframes text-center {
+  from {
+    margin-left: 100%;
+    width: 300%; 
   }
-  
-  body{
-    background-color: darkgray;
-    
-  }
-  
-  .characterInput {
-    border: 1px solid red;
-  }
-  
-  .center {
-    text-align: center;
-  }
-  
-  .jumbotron {
+
+  to {
+    margin-left: 0%;
     width: 100%;
-    height: 300px;
-    background-image: url("https://orig00.deviantart.net/51bb/f/2014/019/5/7/hearthstone_heores_of_warcraft_banner_by_markos040122-d72ttiz.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 1400px 300px;
-    animation-name: banner;
-    animation-duration: 2s;
   }
-    @keyframes banner {
-      0%   {opacity: 0.0;}
-      50%   {opacity: 0.5;}
-      100%  {opacity: 1.0;}
-   
-  }
-  
-  .cardImage {
-    height: 300px;
-    width: 250px;
-  }
-  
-  #createCharacterContainer {
-    display: none;
-  }
-  
-  #cardsInfo {
-    display:none;
-  }
-  
-  .wrapper-hidden {
-    display: none!important;
-  }
-  
-  #center {
-    display:block;
-    margin:auto;
-  }
-  .coolFont {
-    text-align: center;
-    font-family: 'Chela One', cursive;
-  }
-  
-  .text-center {
+}
 
-    animation-name: text-center;
-    animation-duration: 2s;
-  }
+.cardImage {
+  height: 300px;
+  width: 250px;
+}
 
-  @keyframes text-center {
-    from {
-        margin-left: 100%;
-        width: 300%; 
-      }
-    
-      to {
-        margin-left: 0%;
-        width: 100%;
-      }
-    }
+.wrapper-hidden {
+  display: none!important;
+}
+
+.coolFont {
+  text-align: center;
+  font-family: 'Chela One', cursive;
 }
