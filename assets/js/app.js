@@ -5,9 +5,7 @@ var $checkBox = $("input:checked").length > 0;
 var $chosenCards = $("tr");
 
 $(document).ready(function() {
-  var hearthStoneCards = "cards";
-
-  var queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/" + hearthStoneCards + "/";
+  var queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/cards/";
 
   $.ajax({
     url: queryURL,
@@ -17,35 +15,35 @@ $(document).ready(function() {
     }
   })
   //determines what to do with the information recieved
-  .then(function(response) {
+  .then(function(cardSets) {
     $(".loading").addClass("wrapper-hidden");
     $(".show").removeClass("wrapper-hidden");
     $cardsInfo = $("#cardsInfo > tbody");
 
-    console.log(response);
+    console.log(cardSets);
 
-    var setNamesArray = [];
+    var setDeckNamesArray = [];
 
-    for (var key in response) {
-      if (response[key].length !== 0) {
-        setNamesArray.push(key);
+    for (var key in cardSets) {
+      if (cardSets[key].length !== 0) {
+        setDeckNamesArray.push(key);
       }
     }
 
-    console.log(setNamesArray);
+    console.log(setDeckNamesArray);
 
-    for (var i = 0; i < setNamesArray.length; i++) {
+    for (var i = 0; i < setDeckNamesArray.length; i++) {
 
-        if (i<setNamesArray.length/3){
-            $('.col1').append("<a class= dropdown-item>"+setNamesArray[i]+"</a>")
+        if (i<setDeckNamesArray.length/3){
+            $('.col1').append("<a class= dropdown-item>"+setDeckNamesArray[i]+"</a>")
             $('a').addClass("displayCards");
         }
-        else if (i>setNamesArray.length/3 && i<(setNamesArray.length/3)*2){
-            $('.col2').append("<a class= dropdown-item>"+setNamesArray[i]+"</a>")
+        else if (i>setDeckNamesArray.length/3 && i<(setDeckNamesArray.length/3)*2){
+            $('.col2').append("<a class= dropdown-item>"+setDeckNamesArray[i]+"</a>")
             $('a').addClass("displayCards");
         }
         else {
-            $('.col3').append("<a class= dropdown-item>"+setNamesArray[i]+"</a>")
+            $('.col3').append("<a class= dropdown-item>"+setDeckNamesArray[i]+"</a>")
             $('a').addClass("displayCards");
         }
     }
@@ -55,8 +53,8 @@ $(document).ready(function() {
 
       var replace = $(this).text();
 
-      for (var i = 0; i < response[replace].length; i++) {
-        var card = response[replace][i];
+      for (var i = 0; i < cardSets[replace].length; i++) {
+        var card = cardSets[replace][i];
         var imgUrl = card.img;
         var cardType = card.type;
         var playerClass = card.playerClass;
@@ -102,25 +100,50 @@ $(document).ready(function() {
       }
       $(".buttonSelect").click(function () {
         $("#playerDeck").fadeIn(200);
+
         var row = $(this).closest("tr");
         var table = $(this).closest("table");
-
         var IDofthetable = table.attr('id');
-        console.log(IDofthetable);
         var ClassoftheRow = row.attr("class");
 
         row.detach();
 
-        if (ClassoftheRow==IDofthetable) {  // if it is in the parent table
-          $("#playerDeck").append(row);  //move to table 4
-        }
-        else {
-          $("#"+ClassoftheRow).append(row); //move to parent table
+        // if it is in the parent table
+        if (ClassoftheRow==IDofthetable) {
+
+          //move to playerDeck table
+          $("#playerDeck").append(row);
+        } else {
+          
+          //move to parent table
+          $("#"+ClassoftheRow).append(row);
         }
       });      
     });
+  })
+
+  $(".classes").on("click", function() {
+    
+    var classOfCards = $(this).text();
+    console.log(classOfCards)
+
+    var queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/cards/classes/" + classOfCards;
+
+    $.ajax({
+      url: queryURL,
+      method: "GET",
+      headers: {
+        "X-Mashape-Key": "rruq02mvUemshfKdA9mFcE1IYPZhp1qP0yBjsnNFN9a6djXXv6"
+      }
+    })
+    //determines what to do with the information recieved
+    .then(function(cardClasses) {
+      console.log(cardClasses);
+    })
   });
 });
+    //if statement for is user clicks on this button, it prints out that information
+    //would it go here or up above?? lets find out
 
 // ---------------------------YOUTUBE STUFFFFFFFFFFFF---------------------------
 
