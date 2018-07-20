@@ -90,7 +90,7 @@ $(document).ready(function() {
         var playerClass = card.playerClass;
         var cardSet = card.cardSet;
         var cardFaction = card.faction;
-        var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+        var imgElement = $("<img class='cardImage img-responsive' data-toggle='modal' data-target='#imgModal' src=" + imgUrl + " alt=img>");
         var text = card.text;
 
         $.ajax({
@@ -126,7 +126,15 @@ $(document).ready(function() {
         $cardsInfo.append(newRow);
 
         $("#cardsInfo").fadeIn(200);
+        
+        // $("img").on("click", function() {
+        //   var image = $(this).attr('src');
+        //   $('#imgModal').on('show.bs.modal', function () {
+        //       $(".img-responsive").attr("src", image);
+        //   });
+        // })
       }
+
 
       $(".buttonSelect").click(function () {
         $("#playerDeck").fadeIn(200);
@@ -208,7 +216,7 @@ $(document).ready(function() {
         var playerClass = card.playerClass;
         var cardSet = card.cardSet;
         var cardFaction = card.faction;
-        var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+        var imgElement = $("<img class='cardImage img-responsive' data-toggle='modal' data-target='#imgModal' src=" + imgUrl + " alt=img>>");
         var text = card.text;
 
         $.ajax({
@@ -299,7 +307,7 @@ $(document).ready(function() {
         var playerClass = card.playerClass;
         var cardSet = card.cardSet;
         var cardFaction = card.faction;
-        var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+        var imgElement = $("<img class='cardImage img-responsive' data-toggle='modal' data-target='#imgModal' src=" + imgUrl + " alt=img>");
         var text = card.text;
 
         $.ajax({
@@ -390,7 +398,7 @@ $(document).ready(function() {
         var playerClass = card.playerClass;
         var cardSet = card.cardSet;
         var cardFaction = card.faction;
-        var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+        var imgElement = $("<img class='cardImage img-responsive' data-toggle='modal' data-target='#imgModal' src=" + imgUrl + " alt=img>>");
         var text = card.text;
 
         $.ajax({
@@ -481,7 +489,7 @@ $(document).ready(function() {
         var playerClass = card.playerClass;
         var cardSet = card.cardSet;
         var cardFaction = card.faction;
-        var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+        var imgElement = $("<img class='cardImage img-responsive' data-toggle='modal' data-target='#imgModal' src=" + imgUrl + " alt=img>>");
         var text = card.text;
 
         $.ajax({
@@ -572,7 +580,7 @@ $(document).ready(function() {
         var playerClass = card.playerClass;
         var cardSet = card.cardSet;
         var cardFaction = card.faction;
-        var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+        var imgElement = $("<img class='cardImage img-responsive' data-toggle='modal' data-target='#imgModal' src=" + imgUrl + " alt=img>>");
         var text = card.text;
 
         $.ajax({
