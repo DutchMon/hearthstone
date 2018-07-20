@@ -45,39 +45,96 @@
   <div class="wrapper-hidden show">
     <div class="container">
       <div class="row center">
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
           <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
             aria-controls="collapseExample">
             Card Sets
           </button>
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
           <div>
             <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false"
-              aria-controls="multiCollapseExample2">Toggle second element</button>
+              aria-controls="multiCollapseExample2">Classes</button>
             <div class="collapse multi-collapse" id="multiCollapseExample2">
               <div class="row center">
-                <a class="classes" href="#">Death Knight</a>
-                <a class="classes" href="#">Druid</a>
-                <a class="classes" href="#">Hunter</a>
-                <a class="classes" href="#">Mage</a>
-                <a class="classes" href="#">Paladin</a>
-                <a class="classes" href="#">Rogue</a>
-                <a class="classes" href="#">Shaman</a>
-                <a class="classes" href="#">Warlock</a>
-                <a class="classes" href="#">Warrior</a>
-                <a class="classes" href="#">Dream</a>
-                <a class="classes" href="#">Neutral</a>
+                <a class="classes" data-clicked="false" href="#">Death Knight</a>
+                <a class="classes" data-clicked="false" href="#">Druid</a>
+                <a class="classes" data-clicked="false" href="#">Hunter</a>
+                <a class="classes" data-clicked="false" href="#">Mage</a>
+                <a class="classes" data-clicked="false" href="#">Paladin</a>
+                <a class="classes" data-clicked="false" href="#">Rogue</a>
+                <a class="classes" data-clicked="false" href="#">Shaman</a>
+                <a class="classes" data-clicked="false" href="#">Warlock</a>
+                <a class="classes" data-clicked="false" href="#">Warrior</a>
+                <a class="classes" data-clicked="false" href="#">Dream</a>
+                <a class="classes" data-clicked="false" href="#">Neutral</a>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-          <div class="form-group">
-            <button id="submitBtn" type="submit" class="btn btn-primary">Skills</button>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+          <div>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample3" aria-expanded="false"
+              aria-controls="multiCollapseExample3">Types</button>
+            <div class="collapse multi-collapse" id="multiCollapseExample3">
+              <div class="row center">
+                <a class="types" href="#">Minion</a>
+                <a class="types" href="#">Hero</a>
+                <a class="types" href="#">Spell</a>
+                <a class="types" href="#">Enchantment</a>
+                <a class="types" href="#">Weapon</a>
+                <a class="types" href="#">Hero Power</a>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+          <div>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseexample4" aria-expanded="false"
+              aria-controls="multiCollapseexample4">Factions</button>
+            <div class="collapse multi-collapse" id="multiCollapseexample4">
+              <div class="row center">
+                <a class="factions" href="#">Horde</a>
+                <a class="factions" href="#">Alliance</a>
+                <a class="factions" href="#">Neutral</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+          <div>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseexample5" aria-expanded="false"
+              aria-controls="multiCollapseexample5">Qualities</button>
+            <div class="collapse multi-collapse" id="multiCollapseexample5">
+              <div class="row center">
+                <a class="qualities" href="#">Free</a>
+                <a class="qualities" href="#">Common</a>
+                <a class="qualities" href="#">Rare</a>
+                <a class="qualities" href="#">Epic</a>
+                <a class="qualities" href="#">Legendary</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <div>
+              <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseexample6" aria-expanded="false"
+                aria-controls="multiCollapseexample6">Races</button>
+              <div class="collapse multi-collapse" id="multiCollapseexample6">
+                <div class="row center">
+                  <a class="races" href="#">Demon</a>
+                  <a class="races" href="#">Dragon</a>
+                  <a class="races" href="#">Elemental</a>
+                  <a class="races" href="#">Mech</a>
+                  <a class="races" href="#">Murloc</a>
+                  <a class="races" href="#">Beast</a>
+                  <a class="races" href="#">Pirate</a>
+                  <a class="races" href="#">Totem</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
           <div class="form-group">
             <button id="resourcesBtn" type="submit" class="btn btn-primary">
               <a id="whiteText" href="resources.html">Resources</a>
@@ -91,9 +148,33 @@
     <div class="container">
       <div class="card card-body">
         <div class="row center">
-          <div class="col-sm-4 col1"></div>
-          <div class="col-sm-4 col2"></div>
-          <div class="col-sm-4 col3"></div>
+          <div class="col-sm-4 col1">
+            <!-- <a class="dropdown-item displayCards" data-clicked="false">Basic</a>
+            <a class="dropdown-item displayCards" data-clicked="false">Classic</a>
+            <a class="dropdown-item displayCards" data-clicked="false">Hall of Fame</a>
+            <a class="dropdown-item displayCards" data-clicked="false">Naxxramas</a>
+            <a class="dropdown-item displayCards" data-clicked="false">Goblins vs Gnomes</a>
+            <a class="dropdown-item displayCards" data-clicked="false">Blackrock Mountain</a>
+            <a class="dropdown-item displayCards" data-clicked="false">The Grand Tournament</a> -->
+          </div>
+          <div class="col-sm-4 col2">
+            <!-- <a class="dropdown-item displayCards" data-clicked="false">The League of Explorers</a>
+            <a class="dropdown-item displayCards" data-clicked="false">Whispers of the Old Gods</a>
+            <a class="dropdown-item displayCards" data-clicked="false">One Night in Karazhan</a>
+            <a class="dropdown-item displayCards" data-clicked="false">Mean Streets of Gadgetzan</a>
+            <a class="dropdown-item displayCards" data-clicked="false">Journey to Un'Goro</a>
+            <a class="dropdown-item displayCards" data-clicked="false">Knights of the Frozen Throne</a>
+            <a class="dropdown-item displayCards" data-clicked="false">Kobolds & Catacombs</a> -->
+          </div>
+          <div class="col-sm-4 col2">
+            <!-- <a class="dropdown-item displayCards" data-clicked="false">The Witchwood</a>
+            <a class="dropdown-item displayCards" data-clicked="false">Tavern Brawl</a>
+            <a class="dropdown-item displayCards" data-clicked="false">Taverns Of Yime</a>
+            <a class="dropdown-item displayCards" data-clicked="false">Hero Skins</a>
+            <a class="dropdown-item displayCards" data-clicked="false">Missions</a>
+            <a class="dropdown-item displayCards" data-clicked="false">Credits</a>
+            <a class="dropdown-item displayCards" data-clicked="false">Tavern Brawl</a> -->
+          </div>
         </div>
       </div>
     </div>
