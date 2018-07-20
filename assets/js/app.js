@@ -3,8 +3,28 @@ var $addCard = $("#addCard");
 var $makeDeck = $("button");
 var $chosenCards = $("tr");
 
+// $(".displayCards").onclick = function () {
+//   queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/cards/";
+//   console.log(queryURL)
+//   return queryURL;
+// }
+
+// if ($(".displayCards").on("click")) {
+//   console.log("You clicked card sets")
+//    var queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/cards/";
+//   console.log(queryURL);
+//   var $selection = $(".displayCards");
+// } else if ($(".classes").on("click")) {
+//   console.log("you've clicked classes")
+//   var classes = $(this).text();
+//   var queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/cards/classes/" + classes;
+//   console.log(queryURL);
+//   var $selection = $(".classes");
+// }
+
 $(document).ready(function() {
   var queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/cards/";
+
 
   $.ajax({
     url: queryURL,
@@ -33,18 +53,18 @@ $(document).ready(function() {
 
     for (var i = 0; i < setDeckNamesArray.length; i++) {
 
-        if (i<setDeckNamesArray.length/3){
-            $('.col1').append("<a class= dropdown-item>"+setDeckNamesArray[i]+"</a>")
-            $('a').addClass("displayCards");
-        }
-        else if (i>setDeckNamesArray.length/3 && i<(setDeckNamesArray.length/3)*2){
-            $('.col2').append("<a class= dropdown-item>"+setDeckNamesArray[i]+"</a>")
-            $('a').addClass("displayCards");
-        }
-        else {
-            $('.col3').append("<a class= dropdown-item>"+setDeckNamesArray[i]+"</a>")
-            $('a').addClass("displayCards");
-        }
+      if (i<setDeckNamesArray.length/3){
+        $('.col1').append("<a class= dropdown-item>"+setDeckNamesArray[i]+"</a>")
+        $('a').addClass("displayCards");
+      }
+      else if (i>setDeckNamesArray.length/3 && i<(setDeckNamesArray.length/3)*2){
+        $('.col2').append("<a class= dropdown-item>"+setDeckNamesArray[i]+"</a>")
+        $('a').addClass("displayCards");
+      }
+      else {
+        $('.col3').append("<a class= dropdown-item>"+setDeckNamesArray[i]+"</a>")
+        $('a').addClass("displayCards");
+      }
     }
 
     $(".displayCards").on("click", function(replace) {
@@ -52,8 +72,19 @@ $(document).ready(function() {
 
       var replace = $(this).text();
 
-      for (var i = 0; i < cardSets[replace].length; i++) {
-        var card = cardSets[replace][i];
+      length = cardSets[replace];
+
+      //should be able to read the correct length for classes, types, etc if the queryURL would change based on what the user clicked
+      // if ($(".displayCards").data("clicked") === true) {
+      //   console.log(length);
+      // } 
+      // else if ($(".classes").on("click")) {
+      //   length = cardSets;
+      //   console.log(length);
+      // }
+
+      for (var i = 0; i < length.length; i++) {
+        var card = length[i];
         var imgUrl = card.img;
         var cardType = card.type;
         var playerClass = card.playerClass;
@@ -95,8 +126,8 @@ $(document).ready(function() {
         $cardsInfo.append(newRow);
 
         $("#cardsInfo").fadeIn(200);
-        
       }
+
       $(".buttonSelect").click(function () {
         $("#playerDeck").fadeIn(200);
 
@@ -119,7 +150,34 @@ $(document).ready(function() {
         }
       });      
     });
-  })
+  });
+
+  // jQuery('#id').click(function(){
+  //   $(this).data('clicked', true);
+  // });
+
+  // if(jQuery('#id').data('clicked')) {
+  //   //clicked element, do-some-stuff
+  // } else {
+  //   //run function2
+  // }
+
+  // $(".classes").click(function() {
+  //   $(this).data('clicked', true);
+  // });
+
+  // if ($(".classes").data("clicked") === true) {
+  //   var classOfCards = $(".classes").text();
+  //   console.log(classOfCards);
+  //   console.log("you clicked classes")
+  //   var $selection = $(".classes");
+  //   var queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/cards/classes/" + classOfCards;
+  // } else if ($(".type").data("clicked") === true) {
+  //   console.log("you clicked types")
+  //   var $selection = $(".type");
+  //   var queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/cards/types/" + classOfCards;
+  // }
+
 
   $(".classes").on("click", function() {
     
@@ -136,13 +194,446 @@ $(document).ready(function() {
       }
     })
     //determines what to do with the information recieved
-    .then(function(cardClasses) {
-      console.log(cardClasses);
+    .then(function(response) {
+      console.log(response);
+
+      $(".cardsDisplay").empty();
+
+      console.log(response.length);
+
+      for (var i = 0; i < response.length; i++) {
+        var card = response[i];
+        var imgUrl = card.img;
+        var cardType = card.type;
+        var playerClass = card.playerClass;
+        var cardSet = card.cardSet;
+        var cardFaction = card.faction;
+        var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+        var text = card.text;
+
+        $.ajax({
+          url: imgUrl,
+          type: "HEAD",
+          error: function() {
+            //do something depressing
+            imgElement = $("<p>No Image Available</p>");
+            return imgElement;
+          },
+          success: function() {
+            //do something cheerful :)
+            var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+            return imgElement;
+          }
+        });
+
+        //does the same things as the top one for text
+        if (text === undefined) {
+          text = "No text available.";
+        }
+
+        var newRow = $("<tr id=" + i + " class='cardsInfo'>").append(
+          $("<td>").append(imgElement),
+          $("<td>").text(card.name),
+          $("<td>").text(text),
+          $("<td>").text(cardFaction),
+          $("<td>").text(cardType),
+          $("<td>").text(playerClass),
+          $("<td>").text(cardSet),
+          $("<td>").append($("<a href='#' class='buttonSelect' id=" + i + ">Add</button>")),
+        );
+        $cardsInfo.append(newRow);
+
+        $("#cardsInfo").fadeIn(200);
+      };
+
+      $(".buttonSelect").click(function () {
+        $("#playerDeck").fadeIn(200);
+
+        var row = $(this).closest("tr");
+        var table = $(this).closest("table");
+        var IDofthetable = table.attr('id');
+        var ClassoftheRow = row.attr("class");
+
+        row.detach();
+
+        // if it is in the parent table
+        if (ClassoftheRow==IDofthetable) {
+
+          //move to playerDeck table
+          $("#playerDeck").append(row);
+        } else {
+          
+          //move to parent table
+          $("#"+ClassoftheRow).append(row);
+        }
+      });
+    });
+  });
+
+  $(".types").on("click", function() {
+    
+    var classOfCards = $(this).text();
+    console.log(classOfCards)
+
+    var queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/cards/types/" + classOfCards;
+
+    $.ajax({
+      url: queryURL,
+      method: "GET",
+      headers: {
+        "X-Mashape-Key": "rruq02mvUemshfKdA9mFcE1IYPZhp1qP0yBjsnNFN9a6djXXv6"
+      }
     })
+    //determines what to do with the information recieved
+    .then(function(response) {
+      console.log(response);
+
+      $(".cardsDisplay").empty();
+
+      console.log(response.length);
+
+      for (var i = 0; i < response.length; i++) {
+        var card = response[i];
+        var imgUrl = card.img;
+        var cardType = card.type;
+        var playerClass = card.playerClass;
+        var cardSet = card.cardSet;
+        var cardFaction = card.faction;
+        var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+        var text = card.text;
+
+        $.ajax({
+          url: imgUrl,
+          type: "HEAD",
+          error: function() {
+            //do something depressing
+            imgElement = $("<p>No Image Available</p>");
+            return imgElement;
+          },
+          success: function() {
+            //do something cheerful :)
+            var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+            return imgElement;
+          }
+        });
+
+        //does the same things as the top one for text
+        if (text === undefined) {
+          text = "No text available.";
+        }
+
+        var newRow = $("<tr id=" + i + " class='cardsInfo'>").append(
+          $("<td>").append(imgElement),
+          $("<td>").text(card.name),
+          $("<td>").text(text),
+          $("<td>").text(cardFaction),
+          $("<td>").text(cardType),
+          $("<td>").text(playerClass),
+          $("<td>").text(cardSet),
+          $("<td>").append($("<a href='#' class='buttonSelect' id=" + i + ">Add</button>")),
+        );
+        $cardsInfo.append(newRow);
+
+        $("#cardsInfo").fadeIn(200);
+      };
+
+      $(".buttonSelect").click(function () {
+        $("#playerDeck").fadeIn(200);
+
+        var row = $(this).closest("tr");
+        var table = $(this).closest("table");
+        var IDofthetable = table.attr('id');
+        var ClassoftheRow = row.attr("class");
+
+        row.detach();
+
+        // if it is in the parent table
+        if (ClassoftheRow==IDofthetable) {
+
+          //move to playerDeck table
+          $("#playerDeck").append(row);
+        } else {
+          
+          //move to parent table
+          $("#"+ClassoftheRow).append(row);
+        }
+      });
+    });
+  });
+
+  $(".factions").on("click", function() {
+    
+    var classOfCards = $(this).text();
+    console.log(classOfCards)
+
+    var queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/cards/factions/" + classOfCards;
+
+    $.ajax({
+      url: queryURL,
+      method: "GET",
+      headers: {
+        "X-Mashape-Key": "rruq02mvUemshfKdA9mFcE1IYPZhp1qP0yBjsnNFN9a6djXXv6"
+      }
+    })
+    //determines what to do with the information recieved
+    .then(function(response) {
+      console.log(response);
+
+      $(".cardsDisplay").empty();
+
+      console.log(response.length);
+
+      for (var i = 0; i < response.length; i++) {
+        var card = response[i];
+        var imgUrl = card.img;
+        var cardType = card.type;
+        var playerClass = card.playerClass;
+        var cardSet = card.cardSet;
+        var cardFaction = card.faction;
+        var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+        var text = card.text;
+
+        $.ajax({
+          url: imgUrl,
+          type: "HEAD",
+          error: function() {
+            //do something depressing
+            imgElement = $("<p>No Image Available</p>");
+            return imgElement;
+          },
+          success: function() {
+            //do something cheerful :)
+            var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+            return imgElement;
+          }
+        });
+
+        //does the same things as the top one for text
+        if (text === undefined) {
+          text = "No text available.";
+        }
+
+        var newRow = $("<tr id=" + i + " class='cardsInfo'>").append(
+          $("<td>").append(imgElement),
+          $("<td>").text(card.name),
+          $("<td>").text(text),
+          $("<td>").text(cardFaction),
+          $("<td>").text(cardType),
+          $("<td>").text(playerClass),
+          $("<td>").text(cardSet),
+          $("<td>").append($("<a href='#' class='buttonSelect' id=" + i + ">Add</button>")),
+        );
+        $cardsInfo.append(newRow);
+
+        $("#cardsInfo").fadeIn(200);
+      };
+
+      $(".buttonSelect").click(function () {
+        $("#playerDeck").fadeIn(200);
+
+        var row = $(this).closest("tr");
+        var table = $(this).closest("table");
+        var IDofthetable = table.attr('id');
+        var ClassoftheRow = row.attr("class");
+
+        row.detach();
+
+        // if it is in the parent table
+        if (ClassoftheRow==IDofthetable) {
+
+          //move to playerDeck table
+          $("#playerDeck").append(row);
+        } else {
+          
+          //move to parent table
+          $("#"+ClassoftheRow).append(row);
+        }
+      });
+    });
+  });
+
+  $(".qualities").on("click", function() {
+    
+    var classOfCards = $(this).text();
+    console.log(classOfCards)
+
+    var queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/cards/qualities/" + classOfCards;
+
+    $.ajax({
+      url: queryURL,
+      method: "GET",
+      headers: {
+        "X-Mashape-Key": "rruq02mvUemshfKdA9mFcE1IYPZhp1qP0yBjsnNFN9a6djXXv6"
+      }
+    })
+    //determines what to do with the information recieved
+    .then(function(response) {
+      console.log(response);
+
+      $(".cardsDisplay").empty();
+
+      console.log(response.length);
+
+      for (var i = 0; i < response.length; i++) {
+        var card = response[i];
+        var imgUrl = card.img;
+        var cardType = card.type;
+        var playerClass = card.playerClass;
+        var cardSet = card.cardSet;
+        var cardFaction = card.faction;
+        var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+        var text = card.text;
+
+        $.ajax({
+          url: imgUrl,
+          type: "HEAD",
+          error: function() {
+            //do something depressing
+            imgElement = $("<p>No Image Available</p>");
+            return imgElement;
+          },
+          success: function() {
+            //do something cheerful :)
+            var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+            return imgElement;
+          }
+        });
+
+        //does the same things as the top one for text
+        if (text === undefined) {
+          text = "No text available.";
+        }
+
+        var newRow = $("<tr id=" + i + " class='cardsInfo'>").append(
+          $("<td>").append(imgElement),
+          $("<td>").text(card.name),
+          $("<td>").text(text),
+          $("<td>").text(cardFaction),
+          $("<td>").text(cardType),
+          $("<td>").text(playerClass),
+          $("<td>").text(cardSet),
+          $("<td>").append($("<a href='#' class='buttonSelect' id=" + i + ">Add</button>")),
+        );
+        $cardsInfo.append(newRow);
+
+        $("#cardsInfo").fadeIn(200);
+      };
+
+      $(".buttonSelect").click(function () {
+        $("#playerDeck").fadeIn(200);
+
+        var row = $(this).closest("tr");
+        var table = $(this).closest("table");
+        var IDofthetable = table.attr('id');
+        var ClassoftheRow = row.attr("class");
+
+        row.detach();
+
+        // if it is in the parent table
+        if (ClassoftheRow==IDofthetable) {
+
+          //move to playerDeck table
+          $("#playerDeck").append(row);
+        } else {
+          
+          //move to parent table
+          $("#"+ClassoftheRow).append(row);
+        }
+      });
+    });
+  });
+
+  $(".races").on("click", function() {
+    
+    var classOfCards = $(this).text();
+    console.log(classOfCards)
+
+    var queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/cards/races/" + classOfCards;
+
+    $.ajax({
+      url: queryURL,
+      method: "GET",
+      headers: {
+        "X-Mashape-Key": "rruq02mvUemshfKdA9mFcE1IYPZhp1qP0yBjsnNFN9a6djXXv6"
+      }
+    })
+    //determines what to do with the information recieved
+    .then(function(response) {
+      console.log(response);
+
+      $(".cardsDisplay").empty();
+
+      console.log(response.length);
+
+      for (var i = 0; i < response.length; i++) {
+        var card = response[i];
+        var imgUrl = card.img;
+        var cardType = card.type;
+        var playerClass = card.playerClass;
+        var cardSet = card.cardSet;
+        var cardFaction = card.faction;
+        var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+        var text = card.text;
+
+        $.ajax({
+          url: imgUrl,
+          type: "HEAD",
+          error: function() {
+            //do something depressing
+            imgElement = $("<p>No Image Available</p>");
+            return imgElement;
+          },
+          success: function() {
+            //do something cheerful :)
+            var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+            return imgElement;
+          }
+        });
+
+        //does the same things as the top one for text
+        if (text === undefined) {
+          text = "No text available.";
+        }
+
+        var newRow = $("<tr id=" + i + " class='cardsInfo'>").append(
+          $("<td>").append(imgElement),
+          $("<td>").text(card.name),
+          $("<td>").text(text),
+          $("<td>").text(cardFaction),
+          $("<td>").text(cardType),
+          $("<td>").text(playerClass),
+          $("<td>").text(cardSet),
+          $("<td>").append($("<a href='#' class='buttonSelect' id=" + i + ">Add</button>")),
+        );
+        $cardsInfo.append(newRow);
+
+        $("#cardsInfo").fadeIn(200);
+      };
+
+      $(".buttonSelect").click(function () {
+        $("#playerDeck").fadeIn(200);
+
+        var row = $(this).closest("tr");
+        var table = $(this).closest("table");
+        var IDofthetable = table.attr('id');
+        var ClassoftheRow = row.attr("class");
+
+        row.detach();
+
+        // if it is in the parent table
+        if (ClassoftheRow==IDofthetable) {
+
+          //move to playerDeck table
+          $("#playerDeck").append(row);
+        } else {
+          
+          //move to parent table
+          $("#"+ClassoftheRow).append(row);
+        }
+      });
+    });
   });
 });
-    //if statement for is user clicks on this button, it prints out that information
-    //would it go here or up above?? lets find out
 
 // ---------------------------YOUTUBE STUFFFFFFFFFFFF---------------------------
 
@@ -156,16 +647,21 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 // 3. This function creates an <iframe> (and YouTube player)
 //    after the API code downloads.
 var player;
+var playerArray=["player", "player2","player3","player4"]
+var playerIDs=["e9Y9Mavpvfc","pUH30gok49s","jAp6nnKgQp8","eFug8TO6WrE"]
 function onYouTubeIframeAPIReady() {
-  player = new YT.Player('player', {
+  for (var i=0; i<4;i++) {
+
+    player = new YT.Player(playerArray[i], {
     height: '390',
     width: '640',
-    videoId: 'GPAsYTzi-iI',
+    videoId: playerIDs[i],
     events: {
       'onReady': onPlayerReady,
       'onStateChange': onPlayerStateChange
     }
   });
+  } 
 }
 
 // 4. The API will call this function when the video player is ready.
