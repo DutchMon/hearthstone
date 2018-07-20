@@ -30,17 +30,20 @@ body{
   text-align: center;
 }
 
-
 .characterInput {
   border: 1px solid red;
 }
 
 .center {
   text-align: center;
+  position: relative;
 }
 
 .jumbotron {
   width: 100%;
+  background: contain;
+}
+.backgroundIMG {
   height: 250px;
   background-image: url("https://orig00.deviantart.net/51bb/f/2014/019/5/7/hearthstone_heores_of_warcraft_banner_by_markos040122-d72ttiz.png");
   background-position: center;
@@ -84,4 +87,14 @@ body{
 .coolFont {
   text-align: center;
   font-family: 'Chela One', cursive;
+}
+
+#whiteText {
+  color: white;
+}
+
+#wrapperBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
