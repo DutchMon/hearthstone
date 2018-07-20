@@ -1,0 +1,96 @@
+body{
+  background-color: darkgray;
+}
+
+#createCharacterContainer {
+  display: none;
+}
+
+#cardsInfo {
+  display:none;
+}
+#center {
+  display:block;
+  margin:auto;
+}
+
+#playerDeck {
+  display: none;
+}
+
+#hidden {
+  display: none;
+}
+
+#whiteText {
+  color: white;
+}
+
+.header {
+  text-align: center;
+}
+
+.center {
+  text-align: center;
+  position: relative;
+}
+
+.jumbotron {
+  width: 100%;
+  background: contain;
+}
+.backgroundIMG {
+  height: 250px;
+  background-image: url("https://orig00.deviantart.net/51bb/f/2014/019/5/7/hearthstone_heores_of_warcraft_banner_by_markos040122-d72ttiz.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 1200px 250px;
+  animation-name: banner;
+  animation-duration: 2s;
+}
+  @keyframes banner {
+    0%   {opacity: 0.0;}
+    50%   {opacity: 0.5;}
+    100%  {opacity: 1.0;}
+}
+
+.text-center {
+  animation-name: text-center;
+  animation-duration: 2s;
+}
+
+@keyframes text-center {
+  from {
+    margin-left: 100%;
+    width: 300%; 
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+.cardImage {
+  height: 300px;
+  width: 250px;
+}
+
+.wrapper-hidden {
+  display: none!important;
+}
+
+.coolFont {
+  text-align: center;
+  font-family: 'Chela One', cursive;
+}
+
+#whiteText {
+  color: white;
+}
+
+#wrapperBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
