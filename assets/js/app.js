@@ -225,16 +225,21 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 // 3. This function creates an <iframe> (and YouTube player)
 //    after the API code downloads.
 var player;
+var playerArray=["player", "player2","player3","player4"]
+var playerIDs=["e9Y9Mavpvfc","pUH30gok49s","jAp6nnKgQp8","eFug8TO6WrE"]
 function onYouTubeIframeAPIReady() {
-  player = new YT.Player('player', {
+  for (var i=0; i<4;i++) {
+
+    player = new YT.Player(playerArray[i], {
     height: '390',
     width: '640',
-    videoId: 'GPAsYTzi-iI',
+    videoId: playerIDs[i],
     events: {
       'onReady': onPlayerReady,
       'onStateChange': onPlayerStateChange
     }
   });
+  } 
 }
 
 // 4. The API will call this function when the video player is ready.
