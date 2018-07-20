@@ -16,10 +16,6 @@
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="assets/css/style.css">
   <link href="https://fonts.googleapis.com/css?family=Chela+One" rel="stylesheet">
-
-
-
-
   <title>HearthStone Deck Info/Maker</title>
 </head>
 
@@ -27,9 +23,6 @@
   <div class="container">
     <div class="row">
       <div class="jumbotron rounded-bottom backgroundIMG">
-        <!-- <h1 class=title> -->
-        <!-- Image with some text on top -->
-        <!-- </h1> -->
       </div>
     </div>
   </div>
@@ -42,17 +35,13 @@
       </div>
     </div>
   </div>
-
   <div class="loading">
-
     <h1 class="coolFont">
       <strong>Just hang tight while we fetch some data for ya...</strong>
     </h1>
     <br>
     <img id="center" src="assets/images/loading.gif" alt="Loading">
-
   </div>
-
   <div class="wrapper-hidden show">
     <div class="container">
       <div class="row center">
@@ -61,19 +50,26 @@
             aria-controls="collapseExample">
             Card Sets
           </button>
-
-          <!-- <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" value="cards" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              Card Sets
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            </div>
-          </div> -->
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-          <div class="form-group">
-            <button class="btn btn-primary" value="classes">Classes</button>
+          <div>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false"
+              aria-controls="multiCollapseExample2">Toggle second element</button>
+            <div class="collapse multi-collapse" id="multiCollapseExample2">
+              <div class="row center">
+                <a class="classes" href="#">Death Knight</a>
+                <a class="classes" href="#">Druid</a>
+                <a class="classes" href="#">Hunter</a>
+                <a class="classes" href="#">Mage</a>
+                <a class="classes" href="#">Paladin</a>
+                <a class="classes" href="#">Rogue</a>
+                <a class="classes" href="#">Shaman</a>
+                <a class="classes" href="#">Warlock</a>
+                <a class="classes" href="#">Warrior</a>
+                <a class="classes" href="#">Dream</a>
+                <a class="classes" href="#">Neutral</a>
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
@@ -86,28 +82,18 @@
             <button id="resourcesBtn" type="submit" class="btn btn-primary">
               <a id="whiteText" href="resources.html">Resources</a>
             </button>
-
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="collapse" id="collapseExample">
-      <div class="container">
-        <div class="card card-body">
-          <div class="row center">
-            <div class="col-sm-4 col1"></div>
-            <div class="col-sm-4 col2"></div>
-            <div class="col-sm-4 col3"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="form-group center">
-          <button id="makeDeck" type="submit" class="btn btn-primary">Create Deck</button>
+  <div class="collapse" id="collapseExample">
+    <div class="container">
+      <div class="card card-body">
+        <div class="row center">
+          <div class="col-sm-4 col1"></div>
+          <div class="col-sm-4 col2"></div>
+          <div class="col-sm-4 col3"></div>
         </div>
       </div>
     </div>
@@ -121,16 +107,20 @@
               <th scope="col">Img</th>
               <th scope="col">Name</th>
               <th scope="col">Text</th>
-              <th scope="col">Text</th>
+              <th scope="col">Card Faction</th>
+              <th scope="col">Type</th>
+              <th scope="col">Player Class</th>
+              <th scope="col">Card Set</th>
+              <th scope="col">Add To Deck</th>
             </tr>
           </thead>
           <tbody>
-
           </tbody>
         </table>
       </div>
     </div>
   </div>
+  <hr>
   <div class="container">
     <div class="row">
       <table id="cardsInfo" class="table">
@@ -139,7 +129,11 @@
             <th scope="col">Img</th>
             <th scope="col">Name</th>
             <th scope="col">Text</th>
-            <th scope="col">Text</th>
+            <th scope="col">Card Faction</th>
+            <th scope="col">Type</th>
+            <th scope="col">Player Class</th>
+            <th scope="col">Card Set</th>
+            <th scope="col">Add To Deck</th>
           </tr>
         </thead>
         <tbody class="cardsDisplay">
@@ -148,19 +142,6 @@
       </table>
     </div>
   </div>
-  <div class="container wrapper-hidden show">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="form-group center">
-          <button id="createCharacter" type="submit" class="btn btn-primary">Create Deck</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-
   <script src="assets/js/app.js"></script>
 </body>
 

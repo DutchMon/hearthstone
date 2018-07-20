@@ -1,15 +1,11 @@
 var $setButton = $(".setButton");
 var $addCard = $("#addCard");
-var $makeDeck = $("#makeDeck");
-var $checkBox = $('input:checked').length > 0;
-var $chosenCards = $('<tr>');
+var $makeDeck = $("button");
+var $chosenCards = $("tr");
 
 $(document).ready(function() {
-  
-  var hearthStoneCards = "cards";
-  
-  var queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/" + hearthStoneCards + "/";
-  
+  var queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/cards/";
+
   $.ajax({
     url: queryURL,
     method: "GET",
@@ -17,166 +13,205 @@ $(document).ready(function() {
       "X-Mashape-Key": "XdYJmX80oqmshZPZPci91lDozyiqp1pNJVjjsnJN4oyFk83Jc3"
     }
   })
-
   //determines what to do with the information recieved
-  .then(function(response) {
-    $('.loading').addClass("wrapper-hidden");
-    $('.show').removeClass("wrapper-hidden");
+  .then(function(cardSets) {
+    $(".loading").addClass("wrapper-hidden");
+    $(".show").removeClass("wrapper-hidden");
     $cardsInfo = $("#cardsInfo > tbody");
 
-    console.log(response);
+    console.log(cardSets);
 
-    var setNamesArray = [];
+    var setDeckNamesArray = [];
 
-    for (var key in response){
-      if(response[key].length !==0){
-        setNamesArray.push(key);
+    for (var key in cardSets) {
+      if (cardSets[key].length !== 0) {
+        setDeckNamesArray.push(key);
       }
     }
 
-    console.log(setNamesArray);
+    console.log(setDeckNamesArray);
 
-    for (var i = 0; i < setNamesArray.length; i++) {
+    for (var i = 0; i < setDeckNamesArray.length; i++) {
 
-        if (i<setNamesArray.length/3){
-            $('.col1').append("<a class= dropdown-item>"+setNamesArray[i]+"</a>")
+        if (i<setDeckNamesArray.length/3){
+            $('.col1').append("<a class= dropdown-item>"+setDeckNamesArray[i]+"</a>")
             $('a').addClass("displayCards");
         }
-        else if (i>setNamesArray.length/3 && i<(setNamesArray.length/3)*2){
-            $('.col2').append("<a class= dropdown-item>"+setNamesArray[i]+"</a>")
+        else if (i>setDeckNamesArray.length/3 && i<(setDeckNamesArray.length/3)*2){
+            $('.col2').append("<a class= dropdown-item>"+setDeckNamesArray[i]+"</a>")
             $('a').addClass("displayCards");
         }
         else {
-            $('.col3').append("<a class= dropdown-item>"+setNamesArray[i]+"</a>")
+            $('.col3').append("<a class= dropdown-item>"+setDeckNamesArray[i]+"</a>")
             $('a').addClass("displayCards");
         }
     }
 
-    $('.displayCards').on('click',function(replace){
-
-      $('.cardsDisplay').empty();
+    $(".displayCards").on("click", function(replace) {
+      $(".cardsDisplay").empty();
 
       var replace = $(this).text();
 
-      for (var i = 0; i < response[replace].length; i++) {
+      for (var i = 0; i < cardSets[replace].length; i++) {
+        var card = cardSets[replace][i];
+        var imgUrl = card.img;
+        var cardType = card.type;
+        var playerClass = card.playerClass;
+        var cardSet = card.cardSet;
+        var cardFaction = card.faction;
+        var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+        var text = card.text;
 
-        var card = response[replace][i];
-      
-        var $checkBox = $("<input class='selector' type='checkbox' value=" + i + ">");
-        var img = card.img;
-        var imgElement = $("<img class='cardImage' src=" + img + " alt=img>");
-        var text = card.text
+        $.ajax({
+          url: imgUrl,
+          type: "HEAD",
+          error: function() {
+            //do something depressing
+            imgElement = $("<p>No Image Available</p>");
+            return imgElement;
+          },
+          success: function() {
+            //do something cheerful :)
+            var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+            return imgElement;
+          }
+        });
 
-        //if array has a img print the image to the page, otherwise print no image avaiable
-        if (img === undefined) {
-          //changes imgElement to write No Image Available to the table
-          imgElement = "No Image Available"
-        }
         //does the same things as the top one for text
         if (text === undefined) {
-          text = "No text available."
+          text = "No text available.";
         }
-        
-        var newRow = $("<tr id="+i+">").append(
-          $("<td>").prepend($checkBox).append(imgElement),
+
+        var newRow = $("<tr id=" + i + " class='cardsInfo'>").append(
+          $("<td>").append(imgElement),
           $("<td>").text(card.name),
           $("<td>").text(text),
+          $("<td>").text(cardFaction),
+          $("<td>").text(cardType),
+          $("<td>").text(playerClass),
+          $("<td>").text(cardSet),
+          $("<td>").append($("<a href='#' class='buttonSelect' id=" + i + ">Add</button>")),
         );
         $cardsInfo.append(newRow);
+
+        $("#cardsInfo").fadeIn(200);
+      }
+
+      $(".buttonSelect").click(function () {
+        $("#playerDeck").fadeIn(200);
+
+        var row = $(this).closest("tr");
+        var table = $(this).closest("table");
+        var IDofthetable = table.attr('id');
+        var ClassoftheRow = row.attr("class");
+
+        row.detach();
+
+        // if it is in the parent table
+        if (ClassoftheRow==IDofthetable) {
+
+          //move to playerDeck table
+          $("#playerDeck").append(row);
+        } else {
+          
+          //move to parent table
+          $("#"+ClassoftheRow).append(row);
+        }
+      });      
+    });
+  })
+
+  $(".classes").on("click", function() {
     
-        
+    var classOfCards = $(this).text();
+    console.log(classOfCards)
+
+    var queryURL = "https://omgvamp-hearthstone-v1.p.mashape.com/cards/classes/" + classOfCards;
+
+    $.ajax({
+      url: queryURL,
+      method: "GET",
+      headers: {
+        "X-Mashape-Key": "rruq02mvUemshfKdA9mFcE1IYPZhp1qP0yBjsnNFN9a6djXXv6"
+      }
+    })
+    //determines what to do with the information recieved
+    .then(function(cardClasses) {
+      console.log(cardClasses);
+
+      $(".cardsDisplay").empty();
+
+      console.log(cardClasses.length);
+
+      for (var i = 0; i < cardClasses.length; i++) {
+        var card = cardClasses[i];
+        var imgUrl = card.img;
+        var cardType = card.type;
+        var playerClass = card.playerClass;
+        var cardSet = card.cardSet;
+        var cardFaction = card.faction;
+        var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+        var text = card.text;
+
+        $.ajax({
+          url: imgUrl,
+          type: "HEAD",
+          error: function() {
+            //do something depressing
+            imgElement = $("<p>No Image Available</p>");
+            return imgElement;
+          },
+          success: function() {
+            //do something cheerful :)
+            var imgElement = $("<img class='cardImage' src=" + imgUrl + " alt=img>");
+            return imgElement;
+          }
+        });
+
+        //does the same things as the top one for text
+        if (text === undefined) {
+          text = "No text available.";
+        }
+
+        var newRow = $("<tr id=" + i + " class='cardsInfo'>").append(
+          $("<td>").append(imgElement),
+          $("<td>").text(card.name),
+          $("<td>").text(text),
+          $("<td>").text(cardFaction),
+          $("<td>").text(cardType),
+          $("<td>").text(playerClass),
+          $("<td>").text(cardSet),
+          $("<td>").append($("<a href='#' class='buttonSelect' id=" + i + ">Add</button>")),
+        );
+        $cardsInfo.append(newRow);
+
         $("#cardsInfo").fadeIn(200);
       };
 
-      $chosenCards.on("click", function(){
-        var cardValue = $(this).val();
+      $(".buttonSelect").click(function () {
+        $("#playerDeck").fadeIn(200);
 
-        console.log(cardValue)
+        var row = $(this).closest("tr");
+        var table = $(this).closest("table");
+        var IDofthetable = table.attr('id');
+        var ClassoftheRow = row.attr("class");
 
-        return cardValue;
+        row.detach();
+
+        // if it is in the parent table
+        if (ClassoftheRow==IDofthetable) {
+
+          //move to playerDeck table
+          $("#playerDeck").append(row);
+        } else {
+          
+          //move to parent table
+          $("#"+ClassoftheRow).append(row);
+        }
       });
-
-
-      $makeDeck.on("click", function() {
-        // $playerDeck = $("#playerDeck > tbody");
-    
-        
-
-        
-        var playerDeckArray = [];
-    
-        // if ($("input:checked")) {
-        //   var cardIndex = $("input:checked").val();
-        //   var playerDecktext = response[replace][cardIndex].text;
-        //   var playerDeckImage = response[replace][cardIndex].img;
-          
-          var card = response[replace][cardValue];
-      
-          var $checkBox = $("<input class='selector' type='checkbox' value=" + cardValue + ">");
-          var img = card.img;
-          var imgElement = $("<img class='cardImage' src=" + img + " alt=img>");
-          var text = card.text
-  
-          //if array has a img print the image to the page, otherwise print no image avaiable
-          if (img === undefined) {
-            //changes imgElement to write No Image Available to the table
-            imgElement = "No Image Available"
-          }
-          //does the same things as the top one for text
-          if (text === undefined) {
-            text = "No text available."
-          }
-          
-          var newRow = $("<tr value="+i+">").append(
-            $("<td>").prepend($checkBox).append(imgElement),
-            $("<td>").text(card.name),
-            $("<td>").text(text),
-          );
-          $cardsInfo.append(newRow);
-      
-          $("body").css("background-color", "#fff");
-          $("#cardsInfo").fadeIn(200);
-
-
-
-
-          //if array has a img print the image to the page, otherwise print no image avaiable
-        //   if (playerDeckImage === undefined) {
-        //     //changes imgElement to write No Image Available to the table
-        //     playerDeckImage = "No Image Available";
-        //   }
-
-        //   console.log(playerDeckImage)
-        //   // does the same things as the top one for text
-        //   if (playerDecktext === undefined) {
-        //     playerDecktext = "No text available.";
-        //   }
-          
-        //   var playerDeckImageShown = $("<img class='cardImage' src=" + playerDeckImage + " alt=img>");
-
-  
-        //   // playerDeckArray.push(imgElement);
-        //   // playerDeckArray.push(cardName);
-        //   // playerDeckArray.push(text);
-  
-        //   // console.log(playerDeckArray)
-  
-        //   var playerDeckRow = $("<tr>").append(
-        //     $("<td>").append(playerDeckImageShown),
-        //   //   $("<td>").text(cardName),
-        //     $("<td>").text(playerDecktext),
-        //   );
-  
-        //   $playerDeck.append(playerDeckRow);
-        // }
-      })
     });
-  })
+  });
 });
-
-
-
-
 
 // ---------------------------YOUTUBE STUFFFFFFFFFFFF---------------------------
 
