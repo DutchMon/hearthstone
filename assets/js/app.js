@@ -1,3 +1,20 @@
+// firebase
+<script>
+ // Initialize Firebase
+ var config = {
+   apiKey: "AIzaSyDENvgeDfgrChnBszfC_nx19WTTxHGDDiI",
+   authDomain: "hearthstonearchive.firebaseapp.com",
+   databaseURL: "https://hearthstonearchive.firebaseio.com",
+   projectId: "hearthstonearchive",
+   storageBucket: "hearthstonearchive.appspot.com",
+   messagingSenderId: "537574939649"
+ };
+ firebase.initializeApp(config);
+</script>
+
+var database = firebase.database();
+
+
 var $setButton = $(".setButton");
 var $addCard = $("#addCard");
 var $makeDeck = $("button");
@@ -151,6 +168,38 @@ $(document).ready(function() {
       });      
     });
   });
+
+  //   database functions
+  var databaseRef = {
+    pushCard: () => {
+      database.ref().push({
+  
+      });
+  
+      databaseRef.pullChild();
+  
+    },
+    pullChild: () => {
+      var filter = database.ref().orderByChild("dateAdded").limitToLast(1)
+      filter.once("child_added", function(child) {
+  
+        trainTable.updateTrainTable();
+      });
+  
+    },
+  
+    databasePull: () => {
+  
+      database.ref().on("value", function(snapshot) {
+  
+  
+      }, function(errorObject) {
+            console.log("Errors handled: " + errorObject.code);
+  
+      });
+    }
+  
+  }
 
   // jQuery('#id').click(function(){
   //   $(this).data('clicked', true);
